@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f6c945">
+  <meta name="description" content="VibeStudy — a playful personal study dashboard with tasks, calendar, notes, and study contributions.">
+  <title>VibeStudy — Your Study Space</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#dashboard" aria-label="VibeStudy home">
+        <span class="brand-icon">V</span><span>VibeStudy<span class="brand-dot">.</span></span>
+      </a>
+      <p class="nav-label">YOUR WORKSPACE</p>
+      <nav class="navigation" aria-label="Main navigation">
+        <a class="nav-link active" href="#dashboard" data-page="dashboard"><span class="nav-icon">▦</span> Dashboard</a>
+        <a class="nav-link" href="#tasks" data-page="tasks"><span class="nav-icon">☷</span> My Tasks <span class="nav-count">0</span></a>
+        <a class="nav-link" href="#subjects" data-page="subjects"><span class="nav-icon">▤</span> Subjects</a>
+        <a class="nav-link" href="#focus" data-page="focus"><span class="nav-icon">◷</span> Focus Room</a>
+        <a class="nav-link" href="#calendar" data-page="calendar"><span class="nav-icon">▦</span> Calendar</a>
+        <a class="nav-link" href="#notes" data-page="notes"><span class="nav-icon">✎</span> Notes</a>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="doodle-card">
+          <span class="doodle-star" aria-hidden="true">✳</span>
+          <p class="mini-label">A LITTLE REMINDER</p>
+          <h3>Progress, not perfection.</h3>
+          <p>One small step today is still a win.</p>
+          <a href="#focus" class="sticker-link" data-page="focus">Let's focus <span>↗</span></a>
+        </div>
+        <div class="profile">
+          <div class="avatar">A</div>
+          <div class="profile-info"><strong>My Workspace</strong><span>Student account</span></div>
+          <button class="profile-menu" id="profile-button" type="button" aria-label="Workspace settings">•••</button>
+        </div>
+      </div>
+      <span class="sidebar-doodle doodle-circle" aria-hidden="true"></span>
+      <span class="sidebar-doodle doodle-cross" aria-hidden="true">＋</span>
+    </aside>
+
+    <main class="main-content" id="dashboard">
+      <header class="topbar">
+        <button class="icon-button mobile-menu" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="sidebar">☰</button>
+        <div class="breadcrumb"><span>Workspace</span><span class="breadcrumb-separator">/</span><strong id="breadcrumb-page">Dashboard</strong></div>
+        <div class="topbar-actions">
+          <span class="status-indicator"><span></span> Ready to learn</span>
+          <button class="icon-button notification-button" id="notification-button" aria-label="Notifications">♧</button>
+          <div class="avatar small-avatar">A</div>
+        </div>
+      </header>
+
+      <div class="page-content">
+        <section class="welcome-section">
+          <div class="welcome-copy">
+            <div class="eyebrow"><span class="eyebrow-dot"></span> YOUR PERSONAL STUDY SPACE</div>
+            <h1>Make today <span>count!</span><span class="title-spark" aria-hidden="true">✳</span></h1>
+            <p class="welcome-description">Small progress is still progress. Keep going!</p>
+          </div>
+          <div class="date-card"><span class="date-icon" aria-hidden="true">▦</span><div><strong id="current-date">Today</strong><span id="current-year"></span></div></div>
+          <span class="hero-doodle hero-triangle" aria-hidden="true"></span>
+          <span class="hero-doodle hero-plus" aria-hidden="true">＋</span>
+        </section>
+
+        <section class="stats-grid" aria-label="Study statistics">
+          <article class="stat-card stat-yellow">
+            <div class="stat-top"><span class="stat-label">Active subjects</span><span class="stat-icon">▤</span></div>
+            <div class="stat-value" id="subjects-stat">03</div>
+            <div class="stat-footer">Keep learning every day</div>
+            <span class="card-doodle star-doodle" aria-hidden="true">✳</span>
+          </article>
+          <article class="stat-card">
+            <div class="stat-top"><span class="stat-label">Tasks completed</span><span class="stat-icon">✓</span></div>
+            <div class="stat-value"><span id="completed-stat">00</span><span class="stat-total"> / <span id="total-stat">00</span></span></div>
+            <div class="mini-progress"><span id="task-progress"></span></div>
+            <div class="stat-footer" id="task-percentage">0% of your tasks</div>
+          </article>
+          <article class="stat-card">
+            <div class="stat-top"><span class="stat-label">Focus sessions</span><span class="stat-icon">◷</span></div>
+            <div class="stat-value"><span id="sessions-stat">00</span><span class="stat-unit"> today</span></div>
+            <div class="stat-footer">Every minute counts</div>
+            <div class="sparkline" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+          </article>
+          <article class="stat-card stat-coral">
+            <div class="stat-top"><span class="stat-label">Study streak</span><span class="stat-icon">✳</span></div>
+            <div class="stat-value">05<span class="stat-unit"> days</span></div>
+            <div class="stat-footer">Build a consistent habit</div>
+            <div class="streak-dots" aria-label="Five illustrative streak days"><span></span><span></span><span></span><span></span><span></span><i></i><i></i></div>
+          </article>
+        </section>
+
+        <section class="panel contribution-panel" id="contributions">
+          <div class="panel-header">
+            <div><div class="section-kicker">SHOW UP, A LITTLE EVERY DAY</div><h2>Your study contributions</h2><p class="panel-description">Every focus minute counts. Your graph tracks study time across the past year.</p></div>
+            <div class="contribution-total"><strong id="year-study-hours">0h</strong><span>in the last year</span></div>
+          </div>
+          <div class="contribution-legend"><span>Less</span><i class="level-0"></i><i class="level-1"></i><i class="level-2"></i><i class="level-3"></i><i class="level-4"></i><span>More</span></div>
+          <div class="contribution-scroll"><div id="contribution-graph" class="contribution-graph" aria-label="Study time contribution graph for the past year"></div></div>
+          <div class="contribution-foot"><span id="contribution-summary">Start a focus session to make your first contribution.</span><span id="contribution-streak">Current streak: 0 days</span></div>
+        </section>
+
+        <section class="content-grid">
+          <article class="panel tasks-panel" id="tasks">
+            <div class="panel-header">
+              <div><div class="section-kicker">ONE THING AT A TIME</div><h2>My tasks <span class="heading-scribble" aria-hidden="true">✳</span></h2><p class="panel-description">Choose one small thing and move it forward.</p></div>
+              <button class="text-button" id="view-all-button">View all <span>↗</span></button>
+            </div>
+            <div class="task-filters" role="group" aria-label="Filter tasks">
+              <button class="filter-button active" data-filter="all">All tasks <span id="all-count">0</span></button>
+              <button class="filter-button" data-filter="pending">To do</button>
+              <button class="filter-button" data-filter="completed">Completed</button>
+            </div>
+            <div class="task-list" id="task-list"></div>
+            <div class="empty-state" id="empty-state" hidden><span>✳</span><strong>Nothing here right now!</strong><p>Add a task or switch your filter.</p></div>
+            <div class="panel-footer"><span id="task-summary">0 tasks</span><button class="add-task-button" id="add-task-button"><span>＋</span> Add a task</button></div>
+          </article>
+
+          <div class="right-column">
+            <article class="panel focus-panel" id="focus">
+              <div class="panel-header"><div><div class="section-kicker">TIME TO LOCK IN</div><h2>Focus room</h2></div><span class="live-badge"><span></span> READY</span></div>
+              <div class="timer-wrap"><span class="timer-doodle" aria-hidden="true">✳</span><div class="timer-circle" id="timer-circle"><div class="timer-inner"><span class="timer-label" id="timer-label">FOCUS SESSION</span><strong id="timer-display">25:00</strong><span class="timer-caption" id="timer-caption">minutes of focus</span></div></div></div>
+              <div class="focus-context">
+                <label for="focus-subject-select">I'm focusing on</label>
+                <select id="focus-subject-select"><option value="">Choose a subject</option></select>
+              </div>
+              <div class="timer-modes"><button class="timer-mode active" data-mode="focus">Focus · 25 min</button><button class="timer-mode" data-mode="break">Short break · 5 min</button></div>
+              <button class="start-focus-button" id="start-focus-button"><span>▶</span> Start focusing</button>
+              <button class="reset-timer-button" id="reset-timer-button">Reset timer</button>
+              <p class="focus-note" id="focus-note">Choose a subject, start the timer, and give yourself one distraction-free session.</p>
+            </article>
+
+            <article class="panel subjects-panel" id="subjects">
+              <div class="panel-header">
+                <div><div class="section-kicker">YOUR LEARNING JOURNEY</div><h2>Your subjects</h2></div>
+                <button class="small-action-button" id="add-subject-button" type="button">＋ Add subject</button>
+              </div>
+              <div class="subjects-list" id="subjects-list"></div>
+              <div class="subjects-footer"><span id="subjects-summary">0 subjects</span><button class="text-button" id="manage-subjects-button" type="button">Manage subjects ↗</button></div>
+            </article>
+          </div>
+        </section>
+        <section class="workspace-grid">
+          <article class="panel calendar-panel" id="calendar">
+            <div class="panel-header">
+              <div><div class="section-kicker">PLAN YOUR DAYS</div><h2>Study calendar</h2><p class="panel-description">Pick a date to view or schedule tasks.</p></div>
+              <button class="small-action-button" id="calendar-add-task" type="button">＋ Add task</button>
+            </div>
+            <div class="calendar-controls">
+              <button class="icon-button calendar-nav" id="calendar-prev" type="button" aria-label="Previous month">‹</button>
+              <strong id="calendar-month-label">Month Year</strong>
+              <button class="icon-button calendar-nav" id="calendar-next" type="button" aria-label="Next month">›</button>
+              <button class="text-button" id="calendar-today" type="button">Today</button>
+            </div>
+            <div class="calendar-grid" id="calendar-grid" aria-label="Calendar"></div>
+            <div class="selected-date-heading"><div><span class="section-kicker">SELECTED DAY</span><h3 id="selected-date-label">Today</h3></div><span id="selected-date-count" class="selected-date-count">0 tasks</span></div>
+            <div id="calendar-day-tasks" class="calendar-day-tasks"></div>
+          </article>
+          <article class="panel notes-panel" id="notes">
+            <div class="panel-header">
+              <div><div class="section-kicker">THINK IT THROUGH</div><h2>Study notes</h2><p class="panel-description">Save formulas, ideas, and quick reminders.</p></div>
+              <button class="small-action-button" id="add-note-button" type="button">＋ New note</button>
+            </div>
+            <label class="notes-search-label" for="notes-search">Find a note</label>
+            <input id="notes-search" class="notes-search" type="search" placeholder="Search titles or note content...">
+            <div id="notes-list" class="notes-list"></div>
+            <div id="notes-empty" class="empty-state" hidden><span>✳</span><strong>No notes yet</strong><p>Create a note to keep your ideas in one place.</p></div>
+          </article>
+        </section>
+
+        <footer class="app-footer"><span>Made with a little <span class="footer-heart">♥</span> and a lot of focus.</span><span>VIBESTUDY <span class="footer-version">STUDY MODE</span></span></footer>
+      </div>
+    </main>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <dialog class="task-dialog" id="task-dialog">
+    <form id="task-form" method="dialog">
+      <div class="dialog-header"><div><p class="section-kicker">NEW LITTLE GOAL</p><h2>Add a task</h2></div><button type="button" class="dialog-close" id="dialog-close" aria-label="Close dialog">×</button></div>
+      <label class="field-label" for="task-title-input">What do you need to do?</label>
+      <input id="task-title-input" name="title" maxlength="100" placeholder="e.g. Review calculus notes" required>
+      <label class="field-label" for="task-subject-input">Subject</label>
+      <select id="task-subject-input" name="subject"><option>Personal</option><option>PDB</option><option>Mestat 2</option><option>KPB</option></select>
+      <label class="field-label" for="task-priority-input">Priority</label>
+      <select id="task-priority-input" name="priority"><option value="medium">Medium</option><option value="high">High</option><option value="low">Low</option></select>
+      <label class="field-label" for="task-due-date-input">Schedule for</label>
+      <input id="task-due-date-input" name="dueDate" type="date" required>
+      <button class="dialog-submit" type="submit">Add to my list ↗</button>
+    </form>
+  </dialog>
+
+  <dialog class="task-dialog note-dialog" id="note-dialog">
+    <form id="note-form">
+      <div class="dialog-header"><div><p class="section-kicker">KEEP THAT THOUGHT</p><h2 id="note-dialog-title">New study note</h2></div><button type="button" class="dialog-close" id="note-dialog-close" aria-label="Close dialog">×</button></div>
+      <input type="hidden" id="note-id-input" name="id">
+      <label class="field-label" for="note-title-input">Title</label>
+      <input id="note-title-input" name="title" maxlength="100" placeholder="e.g. PDB — integrating factor" required>
+      <label class="field-label" for="note-subject-input">Subject</label>
+      <select id="note-subject-input" name="subject"><option>General</option></select>
+      <label class="field-label" for="note-content-input">Your note</label>
+      <textarea id="note-content-input" name="content" rows="7" maxlength="10000" placeholder="Write your ideas, formulas, or reminders here..." required></textarea>
+      <button class="dialog-submit" type="submit" id="note-submit-button">Save note ↗</button>
+    </form>
+  </dialog>
+
+  <dialog class="task-dialog" id="subject-dialog">
+    <form id="subject-form">
+      <div class="dialog-header">
+        <div><p class="section-kicker" id="subject-dialog-kicker">BUILD YOUR SYLLABUS</p><h2 id="subject-dialog-title">Add a subject</h2></div>
+        <button type="button" class="dialog-close" id="subject-dialog-close" aria-label="Close dialog">×</button>
+      </div>
+      <input type="hidden" id="subject-id-input" name="id">
+      <label class="field-label" for="subject-name-input">Subject name</label>
+      <input id="subject-name-input" name="name" maxlength="45" placeholder="e.g. Linear Algebra" required>
+      <label class="field-label" for="subject-symbol-input">Icon / symbol</label>
+      <input id="subject-symbol-input" name="symbol" maxlength="3" value="∑" placeholder="e.g. ∫">
+      <label class="field-label" for="subject-progress-input">Your progress: <span id="subject-progress-value">0%</span></label>
+      <input id="subject-progress-input" name="progress" type="range" min="0" max="100" step="5" value="0">
+      <label class="field-label" for="subject-color-input">Card color</label>
+      <select id="subject-color-input" name="color">
+        <option value="yellow">Mustard yellow</option>
+        <option value="coral">Soft coral</option>
+        <option value="blue">Powder blue</option>
+        <option value="green">Sage green</option>
+      </select>
+      <button class="dialog-submit" type="submit" id="subject-submit-button">Save subject ↗</button>
+    </form>
+  </dialog>
+</body>
+</html>
